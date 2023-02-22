@@ -11,6 +11,14 @@ class Pelanggan extends Model
     use HasFactory;
     protected $table = 'pelanggan';
     protected $primaryKey = 'id_pelanggan';
+    protected $fillable = [
+        'nama_pelanggan',
+        'alamat_pelanggan',
+        'hp_pelanggan',
+        'email_pelanggan',
+        'username_pelanggan',
+        'password_pelanggan',
+    ];
 
     public function penyewaan() {
         return $this->hasMany('App\Models\Penyewaan', 'id_pelanggan');
