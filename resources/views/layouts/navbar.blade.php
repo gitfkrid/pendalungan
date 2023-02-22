@@ -33,7 +33,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('barang.index') }}">
             <i class="fas fa-box"></i>
             <span>Data Barang</span>
         </a>
@@ -68,7 +68,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('paket_event.index') }}">
             <i class="fas fa-box"></i>
             <span>Pricelist Event</span>
         </a>
@@ -130,7 +130,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('barang.index') }}">
             <i class="fas fa-box"></i>
             <span>Data Barang</span>
         </a>
@@ -165,7 +165,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('paket_event.index') }}">
             <i class="fas fa-box"></i>
             <span>Pricelist Event</span>
         </a>
@@ -213,7 +213,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('barang.index') }}">
             <i class="fas fa-box"></i>
             <span>Data Barang</span>
         </a>
@@ -233,7 +233,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('paket_event.index') }}">
             <i class="fas fa-box"></i>
             <span>Pricelist Event</span>
         </a>

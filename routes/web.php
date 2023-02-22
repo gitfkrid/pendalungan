@@ -9,6 +9,8 @@ use App\Http\Controllers\StatusEventController;
 use App\Http\Controllers\JobdescEventController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\ShortlinkController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PaketEventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +36,10 @@ Route::group(['middleware' => ['auth', 'cekuser:1,2']], function () {
     Route::resource('level', LevelController::class);
     Route::get('/shortlink/data', [ShortlinkController::class, 'dataShortlink'])->name('shortlink.data');
     Route::resource('shortlink', ShortlinkController::class);
+    Route::get('/barang/data', [BarangController::class, 'dataBarang'])->name('barang.data');
+    Route::resource('barang', BarangController::class);
+    Route::get('/paket_event/data', [PaketEventController::class, 'dataPaketEvent'])->name('paket_event.data');
+    Route::resource('paket_event', PaketEventController::class);
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -52,6 +58,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('level', LevelController::class);
     Route::get('/shortlink/data', [ShortlinkController::class, 'dataShortlink'])->name('shortlink.data');
     Route::resource('shortlink', ShortlinkController::class);
+    Route::get('/barang/data', [BarangController::class, 'dataBarang'])->name('barang.data');
+    Route::resource('barang', BarangController::class);
+    Route::get('/paket_event/data', [PaketEventController::class, 'dataPaketEvent'])->name('paket_event.data');
+    Route::resource('paket_event', PaketEventController::class);
 });
 
 Route::get('/{kode}', [App\Http\Controllers\ShortlinkController::class, 'shortenLink'])->name('shorten.link');

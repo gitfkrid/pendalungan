@@ -1,21 +1,21 @@
 @component('layouts.app')
     @slot('title')
-        Shortlink - Pendalungan Megah Solusi
+        Data Pricelist Event - Pendalungan Megah Solusi
     @endslot
 
     @section('title')
-        Shortlink
+        Pricelist Event
     @endsection
 
     @section('breadcrumb')
         @parent
-        <li class="breadcrumb-item">Shortlink</li>
+        <li class="breadcrumb-item">Pricelist Event</li>
     @endsection
 
     @section('content')
         <div class="row">
             <div class="col-lg-12 mb-3">
-                <a href="javascript:void(0)" class="btn btn-primary" onclick="addForm()"><i class="fa fa-plus-circle"></i> Tambah Shortlink</a>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="addForm()"><i class="fa fa-plus-circle"></i> Tambah Pricelist</a>
             </div>
         </div>
         <div class="row">
@@ -26,8 +26,9 @@
                         <thead class="thead-light">
                         <tr>
                             <th>No</th>
-                            <th>Kode</th>
-                            <th>Keterangan</th>
+                            <th>Nama</th>
+                            <th>Deskripsi</th>
+                            <th>Harga</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
@@ -37,7 +38,7 @@
                 </div>
             </div>
         </div>
-    @include('shortlink.form')
+    @include('paket_event.form')
     @endsection
 
     @section('script')
@@ -51,7 +52,7 @@
                     'scrollY'     : true,
                     'autoWidth'   : false,
                     "ajax" : {
-                        "url" : "{{ route('shortlink.data') }}",
+                        "url" : "{{ route('paket_event.data') }}",
                         "type" : "GET"
                     }
                 });
@@ -59,8 +60,8 @@
                 $('#modal-form form').on('submit', function(e){
                     if(!e.isDefaultPrevented()){
                         var id = $('#id').val();
-                        if(save_method == "add") url = "{{ route('shortlink.store') }}";
-                        else url = "shortlink/"+id;
+                        if(save_method == "add") url = "{{ route('paket_event.store') }}";
+                        else url = "paket_event/"+id;
 
                         $.ajax({
                             url : url,
@@ -84,7 +85,7 @@
                 $('input[name=_method]').val('POST');
                 $('#modal-form').modal('show');
                 $('#modal-form form')[0].reset();
-                $('.modal-title').text('Tambah Shortlink');
+                $('.modal-title').text('Tambah Pricelist Event');
             }
 
             function editForm(id){
@@ -92,17 +93,17 @@
                 $('input[name=_method]').val('PATCH');
                 $('#modal-form form')[0].reset();
                 $.ajax({
-                    url : "shortlink/"+id+"/edit",
+                    url : "paket_event/"+id+"/edit",
                     type : "GET",
                     dataType : "JSON",
                     success : function(data){
                         $('#modal-form').modal('show');
-                        $('.modal-title').text('Edit Shortlink');
+                        $('.modal-title').text('Edit Pricelist Event');
 
-                        $('#id').val(data.id_shortlink);
-                        $('#kode').val(data.kode);
-                        $('#link').val(data.link);
-                        $('#keterangan').val(data.keterangan);
+                        $('#id').val(data.id_paket);
+                        $('#nama_paket').val(data.nama_paket);
+                        $('#deskripsi_paket').val(data.deskripsi_paket);
+                        $('#harga_paket').val(data.harga_paket);
                     },
                     error : function(){
                         alert("Tidak dapat menampilkan data!");
@@ -113,7 +114,7 @@
             function deleteData(id) {
                 Swal.fire({
                     title: 'Apakah anda yakin?',
-                    text: "Data shortlink akan dihapus!",
+                    text: "Data paket event akan dihapus!",
                     icon: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#d33',
@@ -122,13 +123,13 @@
                     }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url : "shortlink/"+id,
+                            url : "paket_event/"+id,
                             type : "POST",
                             data : {'_method' : 'DELETE', '_token' : $('meta[name=csrf-token]').attr('content')},
                             success : function(data) {
                                 Swal.fire(
                                     'Berhasil!',
-                                    'Data shortlink terhapus.',
+                                    'Data paket event terhapus.',
                                     'success'
                                 )
                                 table.ajax.reload();

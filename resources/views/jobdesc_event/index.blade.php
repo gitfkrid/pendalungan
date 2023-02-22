@@ -122,6 +122,11 @@
                             type : "POST",
                             data : {'_method' : 'DELETE', '_token' : $('meta[name=csrf-token]').attr('content')},
                             success : function(data) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Data jobdesc event terhapus.',
+                                    'success'
+                                )
                                 table.ajax.reload();
                             },
                             error : function () {
@@ -132,11 +137,6 @@
                                 })
                             }
                         });
-                        Swal.fire(
-                        'Berhasil!',
-                        'Data jobdesc event terhapus.',
-                        'success'
-                        )
                     }
                     })
             }

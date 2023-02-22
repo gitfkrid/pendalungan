@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class BarangController extends Controller
 {
@@ -13,7 +17,72 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $kategori = Kategori::all();
+        return view('barang.index', compact('kategori'));
+    }
+
+    public function dataBarang() {
+        if(Auth::user()->id_level == '1') {
+            $barang = Barang::join('kategori', 'kategori.id_kategori', '=', 'barang.id_kategori')
+                        ->orderBy('id_barang', 'desc')
+                        ->get();
+            $no = 0;
+            $data = array();
+            foreach ($barang as $list) {
+                $no++;
+                $row = array();
+                $row[] = $no;
+                $row[] = $list->nama_barang;
+                $row[] = $list->nama_kategori;
+                $row[] = $list->spek_barang;
+                $row[] = $list->sn_barang;
+                $row[] = "Rp. ". format_uang($list->harga_sewa);
+                $row[] = $list->stok;
+                $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_barang.')"><i class="fas fa-pencil-alt"></i></a> 
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id_barang.')"><i class="fa fa-trash"></i></a>';
+                $data[] = $row;
+            }
+            return DataTables::of($data)->escapeColumns([])->make(true);
+        } else if (Auth::user()->id_level == '2') {
+            $barang = Barang::join('kategori', 'kategori.id_kategori', '=', 'barang.id_kategori')
+                        ->orderBy('id_barang', 'desc')
+                        ->get();
+            $no = 0;
+            $data = array();
+            foreach ($barang as $list) {
+                $no++;
+                $row = array();
+                $row[] = $no;
+                $row[] = $list->nama_barang;
+                $row[] = $list->nama_kategori;
+                $row[] = $list->spek_barang;
+                $row[] = $list->sn_barang;
+                $row[] = "Rp. ". format_uang($list->harga_sewa);
+                $row[] = $list->stok;
+                $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_barang.')"><i class="fas fa-pencil-alt"></i></a>';
+                $data[] = $row;
+            }
+            return DataTables::of($data)->escapeColumns([])->make(true);
+        } else {
+            $barang = Barang::join('kategori', 'kategori.id_kategori', '=', 'barang.id_kategori')
+                        ->orderBy('id_barang', 'desc')
+                        ->get();
+            $no = 0;
+            $data = array();
+            foreach ($barang as $list) {
+                $no++;
+                $row = array();
+                $row[] = $no;
+                $row[] = $list->nama_barang;
+                $row[] = $list->nama_kategori;
+                $row[] = $list->spek_barang;
+                $row[] = $list->sn_barang;
+                $row[] = "Rp. ". format_uang($list->harga_sewa);
+                $row[] = $list->stok;
+                $data[] = $row;
+            }
+            return DataTables::of($data)->escapeColumns([])->make(true);
+        }
     }
 
     /**
@@ -34,7 +103,21 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jml = Barang::where('sn_barang', $request->sn_barang)->count();
+        if($jml < 1) {
+            $barang = new Barang;
+            $barang->id_kategori = $request->id_kategori;
+            $barang->nama_barang = $request->nama_barang;
+            $barang->spek_barang = $request->spek_barang;
+            $barang->sn_barang = $request->sn_barang;
+            $barang->harga_sewa = $request->harga_sewa;
+            $barang->stok = $request->stok;
+            $barang->save();
+            echo json_encode(array('msg' => 'success'));
+        } else {
+            return response()->json(['error' => 'Data sudah ada']);
+            echo json_encode(array('msg' => 'failed'));
+        }
     }
 
     /**
@@ -56,7 +139,8 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $barang = Barang::find($id);
+        echo json_encode($barang);
     }
 
     /**
@@ -68,7 +152,15 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $barang = Barang::find($id);
+        $barang->id_kategori = $request->id_kategori;
+        $barang->nama_barang = $request->nama_barang;
+        $barang->spek_barang = $request->spek_barang;
+        $barang->sn_barang = $request->sn_barang;
+        $barang->harga_sewa = $request->harga_sewa;
+        $barang->stok = $request->stok;
+        $barang->update();
+        echo json_encode(array('msg' => 'success'));
     }
 
     /**
@@ -79,6 +171,7 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $barang = Barang::find($id);
+        $barang->delete();
     }
 }
