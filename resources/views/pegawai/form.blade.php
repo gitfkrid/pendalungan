@@ -13,37 +13,37 @@
                     <input type="hidden" id="id" name="id"/>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="nama_barang" class="form-label">Nama Barang</label>
-                            <input type="text" id="nama_barang" name="nama_barang" class="form-control" autofocus required />
+                            <label for="name" class="form-label">Nama Pegawai</label>
+                            <input type="text" id="name" name="name" class="form-control" autofocus required />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="id_kategori">Kategori</label>
-                            <select class="form-control" id="id_kategori" name="id_kategori" required>
-                                <option value="">Pilih Kategori</option>
-                                @foreach($kategori as $data)
-                                    <option value="{{ $data->id_kategori }}">{{ $data->nama_kategori }}</option>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="hp" class="form-label">No Hp</label>
+                            <input type="text" id="hp" name="hp" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="id_level">Level</label>
+                            <select class="form-control" id="id_level" name="id_level" required>
+                                <option value="">Pilih Level</option>
+                                @foreach($level as $data)
+                                    <option value="{{ $data->id_level }}">{{ $data->nama_level }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="spek_barang" class="form-label">Spek Barang</label>
-                            <input type="text" id="spek_barang" name="spek_barang" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="sn_barang" class="form-label">SN Barang</label>
-                            <input type="text" id="sn_barang" name="sn_barang" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="harga_sewa" class="form-label">Harga Sewa</label>
-                            <input type="number" id="harga_sewa" name="harga_sewa" class="form-control" required />
+                            <label for="password" class="form-label">Password</label>
+                            <input type="text" id="password" name="password" class="form-control" required />
                         </div>
                     </div>
                     <div class="modal-footer">

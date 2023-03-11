@@ -28,7 +28,7 @@ class ShortlinkController extends Controller
                 $no++;
                 $row = array();
                 $row[] = $no;
-                $row[] = '<a href="'.route('shorten.link', $list->kode).'" class="btn btn-primary btn-sm">'.$list->kode.'</a>';
+                $row[] = '<a href="'.route('shorten.link', $list->kode).'" target="_blank" class="btn btn-primary btn-sm">'.$list->kode.'</a>';
                 $row[] = $list->keterangan;
                 $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_shortlink.')"><i class="fas fa-pencil-alt"></i></a> 
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id_shortlink.')"><i class="fa fa-trash"></i></a>';

@@ -37,7 +37,6 @@ class BarangController extends Controller
                 $row[] = $list->spek_barang;
                 $row[] = $list->sn_barang;
                 $row[] = "Rp. ". format_uang($list->harga_sewa);
-                $row[] = $list->stok;
                 $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_barang.')"><i class="fas fa-pencil-alt"></i></a> 
                 <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id_barang.')"><i class="fa fa-trash"></i></a>';
                 $data[] = $row;
@@ -58,7 +57,6 @@ class BarangController extends Controller
                 $row[] = $list->spek_barang;
                 $row[] = $list->sn_barang;
                 $row[] = "Rp. ". format_uang($list->harga_sewa);
-                $row[] = $list->stok;
                 $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_barang.')"><i class="fas fa-pencil-alt"></i></a>';
                 $data[] = $row;
             }
@@ -78,7 +76,7 @@ class BarangController extends Controller
                 $row[] = $list->spek_barang;
                 $row[] = $list->sn_barang;
                 $row[] = "Rp. ". format_uang($list->harga_sewa);
-                $row[] = $list->stok;
+                $row[] = '';
                 $data[] = $row;
             }
             return DataTables::of($data)->escapeColumns([])->make(true);
@@ -111,7 +109,6 @@ class BarangController extends Controller
             $barang->spek_barang = $request->spek_barang;
             $barang->sn_barang = $request->sn_barang;
             $barang->harga_sewa = $request->harga_sewa;
-            $barang->stok = $request->stok;
             $barang->save();
             echo json_encode(array('msg' => 'success'));
         } else {
@@ -158,7 +155,6 @@ class BarangController extends Controller
         $barang->spek_barang = $request->spek_barang;
         $barang->sn_barang = $request->sn_barang;
         $barang->harga_sewa = $request->harga_sewa;
-        $barang->stok = $request->stok;
         $barang->update();
         echo json_encode(array('msg' => 'success'));
     }

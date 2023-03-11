@@ -18,4 +18,8 @@ class Event extends Model
     public function status_event() {
         return $this->belongsTo('App\Models\StatusEvent', 'id_status_event');
     }
+
+    public function pelanggan() {
+        return $this->belongsTo('App\Models\Pelanggan', 'id_pelanggan');
+    }
 }

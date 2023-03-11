@@ -1,21 +1,21 @@
 @component('layouts.app')
     @slot('title')
-        Data Barang - Pendalungan Megah Solusi
+        Data Pegawai - Pendalungan Megah Solusi
     @endslot
 
     @section('title')
-        Barang
+        Pegawai
     @endsection
 
     @section('breadcrumb')
         @parent
-        <li class="breadcrumb-item">Barang</li>
+        <li class="breadcrumb-item">Pegawai</li>
     @endsection
 
     @section('content')
         <div class="row">
             <div class="col-lg-12 mb-3">
-                <a href="javascript:void(0)" class="btn btn-primary" onclick="addForm()"><i class="fa fa-plus-circle"></i> Tambah Barang</a>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="addForm()"><i class="fa fa-plus-circle"></i> Tambah Data</a>
             </div>
         </div>
         <div class="row">
@@ -26,11 +26,9 @@
                         <thead class="thead-light">
                         <tr>
                             <th>No</th>
-                            <th>Nama Barang</th>
-                            <th>Nama kategori</th>
-                            <th>Spesifikasi</th>
-                            <th>SN</th>
-                            <th>Harga Sewa</th>
+                            <th>Nama Pegawai</th>
+                            <th>Email Pegawai</th>
+                            <th>Level</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
@@ -40,7 +38,7 @@
                 </div>
             </div>
         </div>
-    @include('barang.form')
+    @include('pegawai.form')
     @endsection
 
     @section('script')
@@ -54,7 +52,7 @@
                     'scrollY'     : true,
                     'autoWidth'   : false,
                     "ajax" : {
-                        "url" : "{{ route('barang.data') }}",
+                        "url" : "{{ route('pegawai.data') }}",
                         "type" : "GET"
                     }
                 });
@@ -62,8 +60,8 @@
                 $('#modal-form form').on('submit', function(e){
                     if(!e.isDefaultPrevented()){
                         var id = $('#id').val();
-                        if(save_method == "add") url = "{{ route('barang.store') }}";
-                        else url = "barang/"+id;
+                        if(save_method == "add") url = "{{ route('pegawai.store') }}";
+                        else url = "pegawai/"+id;
 
                         $.ajax({
                             url : url,
@@ -87,7 +85,7 @@
                 $('input[name=_method]').val('POST');
                 $('#modal-form').modal('show');
                 $('#modal-form form')[0].reset();
-                $('.modal-title').text('Tambah Barang');
+                $('.modal-title').text('Tambah Pegawai');
             }
 
             function editForm(id){
@@ -95,19 +93,19 @@
                 $('input[name=_method]').val('PATCH');
                 $('#modal-form form')[0].reset();
                 $.ajax({
-                    url : "barang/"+id+"/edit",
+                    url : "pegawai/"+id+"/edit",
                     type : "GET",
                     dataType : "JSON",
                     success : function(data){
                         $('#modal-form').modal('show');
-                        $('.modal-title').text('Edit Barang');
+                        $('.modal-title').text('Edit Pegawai');
 
-                        $('#id').val(data.id_barang);
-                        $('#nama_barang').val(data.nama_barang);
-                        $('#id_kategori').val(data.id_kategori);
-                        $('#spek_barang').val(data.spek_barang);
-                        $('#sn_barang').val(data.sn_barang);
-                        $('#harga_sewa').val(data.harga_sewa);
+                        $('#id').val(data.id);
+                        $('#name').val(data.name);
+                        $('#email').val(data.email);
+                        $('#hp').val(data.hp);
+                        $('#id_level').val(data.id_level);
+                        $('#password').attr('disabled', true);
                     },
                     error : function(){
                         alert("Tidak dapat menampilkan data!");
@@ -118,7 +116,7 @@
             function deleteData(id) {
                 Swal.fire({
                     title: 'Apakah anda yakin?',
-                    text: "Data Barang akan dihapus!",
+                    text: "Data Pegawai akan dihapus!",
                     icon: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#d33',
@@ -127,13 +125,13 @@
                     }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url : "barang/"+id,
+                            url : "pegawai/"+id,
                             type : "POST",
                             data : {'_method' : 'DELETE', '_token' : $('meta[name=csrf-token]').attr('content')},
                             success : function(data) {
                                 Swal.fire(
                                     'Berhasil!',
-                                    'Data barang terhapus.',
+                                    'Data pegawai terhapus.',
                                     'success'
                                 )
                                 table.ajax.reload();

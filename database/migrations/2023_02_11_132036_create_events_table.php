@@ -22,7 +22,8 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->string('lokasi_event', 50);
-            $table->string('nama_pemesan', 50);
+            $table->unsignedBigInteger('id_pelanggan');
+            $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan');
             $table->unsignedBigInteger('id_status_event');
             $table->foreign('id_status_event')->references('id_status_event')->on('status_event');
             $table->integer('subtotal');

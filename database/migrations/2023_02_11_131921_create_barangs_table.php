@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('spek_barang', 100);
             $table->string('sn_barang', 50);
             $table->integer('harga_sewa');
-            $table->integer('stok');
             $table->timestamps();
         });
     }

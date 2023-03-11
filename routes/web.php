@@ -11,6 +11,7 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\ShortlinkController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PaketEventController;
+use App\Http\Controllers\PegawaiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,6 +41,8 @@ Route::group(['middleware' => ['auth', 'cekuser:1,2']], function () {
     Route::resource('barang', BarangController::class);
     Route::get('/paket_event/data', [PaketEventController::class, 'dataPaketEvent'])->name('paket_event.data');
     Route::resource('paket_event', PaketEventController::class);
+    Route::get('/pegawai/data', [PegawaiController::class, 'dataPegawai'])->name('pegawai.data');
+    Route::resource('pegawai', PegawaiController::class);
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -62,6 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('barang', BarangController::class);
     Route::get('/paket_event/data', [PaketEventController::class, 'dataPaketEvent'])->name('paket_event.data');
     Route::resource('paket_event', PaketEventController::class);
+    Route::get('/pegawai/data', [PegawaiController::class, 'dataPegawai'])->name('pegawai.data');
+    Route::resource('pegawai', PegawaiController::class);
 });
 
 Route::get('/{kode}', [App\Http\Controllers\ShortlinkController::class, 'shortenLink'])->name('shorten.link');
