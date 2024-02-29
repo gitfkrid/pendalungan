@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LevelSeeder::class,
             UserSeeder::class,
+            StatusEventSeeder::class,
+            StatusSewaSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();

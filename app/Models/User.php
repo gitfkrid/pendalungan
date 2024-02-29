@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'hp',
+        'alamat',
         'id_level',
         'password',
     ];
@@ -51,10 +52,20 @@ class User extends Authenticatable
 
     public function penyewaan() {
         return $this->hasMany('App\Models\Penyewaan', 'id_user');
+        return $this->hasMany('App\Models\Penyewaan', 'id_penyewa');
     }
 
     public function detail_event() {
         return $this->hasMany('App\Models\DetailEvent', 'id_user');
+    }
+
+    public function riwayat_penyewaan() {
+        return $this->hasMany('App\Models\RiwayatPenyewaan', 'id_user');
+        return $this->hasMany('App\Models\RiwayatPenyewaan', 'id_penyewa');
+    }
+
+    public function detail_riwayat_event() {
+        return $this->hasMany('App\Models\DetailRiwayatEvent', 'id_user');
     }
 
     protected static function boot()

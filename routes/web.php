@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\StatusSewaController;
@@ -10,8 +10,12 @@ use App\Http\Controllers\JobdescEventController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\ShortlinkController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaketEventController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PenyewaanController;
+use App\Http\Controllers\PenyewaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,7 +25,7 @@ Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLog
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['auth', 'cekuser:1,2']], function () {
+Route::group(['middleware' => ['auth', 'cekuser:1,2,3']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/kategori/data', [KategoriController::class, 'dataKategori'])->name('kategori.data');
     Route::resource('kategori', KategoriController::class);
@@ -41,32 +45,52 @@ Route::group(['middleware' => ['auth', 'cekuser:1,2']], function () {
     Route::resource('barang', BarangController::class);
     Route::get('/paket_event/data', [PaketEventController::class, 'dataPaketEvent'])->name('paket_event.data');
     Route::resource('paket_event', PaketEventController::class);
+    Route::get('/pegawai/{uuid}/edit', [PegawaiController::class, 'showEdit'])->name('pegawai.showEdit');
     Route::get('/pegawai/data', [PegawaiController::class, 'dataPegawai'])->name('pegawai.data');
     Route::resource('pegawai', PegawaiController::class);
-});
-
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/kategori/data', [KategoriController::class, 'dataKategori'])->name('kategori.data');
-    Route::resource('kategori', KategoriController::class);
-    Route::get('/jaminan/data', [JaminanController::class, 'dataJaminan'])->name('jaminan.data');
-    Route::resource('jaminan', JaminanController::class);
-    Route::get('/status_sewa/data', [StatusSewaController::class, 'dataStatusSewa'])->name('status_sewa.data');
-    Route::resource('status_sewa', StatusSewaController::class);
-    Route::get('/status_event/data', [StatusEventController::class, 'dataStatusEvent'])->name('status_event.data');
-    Route::resource('status_event', StatusEventController::class);
-    Route::get('/jobdesc_event/data', [JobdescEventController::class, 'dataJobdescEvent'])->name('jobdesc_event.data');
-    Route::resource('jobdesc_event', JobdescEventController::class);
-    Route::get('level/data', [LevelController::class, 'dataLevel'])->name('level.data');
-    Route::resource('level', LevelController::class);
-    Route::get('/shortlink/data', [ShortlinkController::class, 'dataShortlink'])->name('shortlink.data');
-    Route::resource('shortlink', ShortlinkController::class);
-    Route::get('/barang/data', [BarangController::class, 'dataBarang'])->name('barang.data');
-    Route::resource('barang', BarangController::class);
-    Route::get('/paket_event/data', [PaketEventController::class, 'dataPaketEvent'])->name('paket_event.data');
-    Route::resource('paket_event', PaketEventController::class);
-    Route::get('/pegawai/data', [PegawaiController::class, 'dataPegawai'])->name('pegawai.data');
-    Route::resource('pegawai', PegawaiController::class);
+    Route::get('/pelanggan/data', [PelangganController::class, 'dataPelanggan'])->name('pelanggan.data');
+    Route::resource('pelanggan', PelangganController::class);
+    Route::get('/penyewaan/dataOngoing', [PenyewaanController::class, 'dataOngoing'])->name('penyewaan.dataOngoing');
+    Route::get('/penyewaan/ongoing', [PenyewaanController::class, 'ongoing'])->name('penyewaan.ongoing');
+    Route::get('penyewaan/ongoing/{id}', [PenyewaanController::class, 'dataSewa'])->name('penyewaan.dataSewa');
+    Route::post('/penyewaan/ongoing/changeRiwayat', [PenyewaanController::class, 'changeRiwayat'])->name('penyewaan.changeRiwayat');
+    Route::patch('/penyewaan/ongoing/changeBerlangsung', [PenyewaanController::class, 'changeBerlangsung'])->name('penyewaan.changeBerlangsung');
+    Route::get('/penyewaan/{id}/penyewa', [PenyewaanController::class, 'detailPenyewa'])->name('penyewaan.detailPenyewa');
+    Route::get('/penyewaan/{id}/barang', [PenyewaanController::class, 'detailBarang'])->name('penyewaan.detailBarang');
+    Route::get('/penyewaan/data/keranjang', [PenyewaanController::class, 'dataKeranjang'])->name('penyewaan.dataKeranjang');
+    Route::get('/penyewaan/databarang', [PenyewaanController::class, 'dataBarang'])->name('penyewaan.dataBarang');
+    Route::get('/penyewaan/datainvoice', [PenyewaanController::class, 'invoice'])->name('penyewaan.invoice');
+    Route::get('/penyewaan/dataTotal', [PenyewaanController::class, 'totalKeranjang'])->name('penyewaan.total');
+    Route::post('/penyewaan/chekout', [PenyewaanController::class, 'chekoutBarang'])->name('penyewaan.chekout');
+    Route::delete('/penyewaan/{id}/hapusKeranjang', [PenyewaanController::class, 'hapusKeranjang'])->name('penyewaan.hapusKeranjang');
+    Route::resource('/penyewaan', PenyewaanController::class);
+    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+    Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/user/{id}', [UserController::class, 'updateProfile'])->name('user.update');
+    Route::get('/riwayat_penyewaan/dataRiwayat', [App\Http\Controllers\RiwayatPenyewaanController::class, 'dataRiwayat'])->name('riwayat_penyewaan.data');
+    Route::resource('riwayat_penyewaan', App\Http\Controllers\RiwayatPenyewaanController::class);
+    Route::get('/event/{id}/paket_event', [App\Http\Controllers\EventController::class, 'paket_event'])->name('event.paket_event');
+    Route::get('/event/{id}/pelanggan', [App\Http\Controllers\EventController::class, 'pelanggan'])->name('event.pelanggan');
+    Route::get('/event/invoice', [App\Http\Controllers\EventController::class, 'invoice'])->name('event.invoice');
+    Route::get('/event/ongoing', [App\Http\Controllers\EventController::class, 'ongoing'])->name('event.ongoing');
+    Route::get('/event/dataOngoing', [App\Http\Controllers\EventController::class, 'dataOngoing'])->name('event.dataOngoing');
+    Route::get('/event/ongoing/{id}', [App\Http\Controllers\EventController::class, 'dataEvent'])->name('event.dataEvent');
+    Route::patch('event/ongoing/changeBerlangsung', [App\Http\Controllers\EventController::class, 'changeBerlangsung'])->name('event.changeBerlangsung');
+    Route::post('/event/ongoing/changeRiwayat', [App\Http\Controllers\EventController::class, 'changeRiwayat'])->name('event.changeRiwayat');
+    Route::post('/event/berlangsung', [App\Http\Controllers\EventController::class, 'berlangsung'])->name('event.berlangsung');
+    Route::resource('event', App\Http\Controllers\EventController::class);
+    Route::get('/riwayat_event/dataRiwayat', [App\Http\Controllers\RiwayatEventController::class, 'dataRiwayat'])->name('riwayat_event.data');
+    Route::resource('riwayat_event', App\Http\Controllers\RiwayatEventController::class);
+    Route::get('/penyewa', [PenyewaController::class, 'index'])->name('penyewa.index');
+    Route::get('/penyewa/data', [PenyewaController::class, 'dataPenyewa'])->name('penyewa.data');
+    Route::post('/penyewa/store', [PenyewaController::class, 'store'])->name('penyewa.store');
+    Route::delete('/penyewa/{id}', [PenyewaController::class, 'destroy'])->name('penyewa.destroy');
+    Route::get('/invoice/{id}/event', [InvoiceController::class, 'indexEvent'])->name('invoice.indexEvent');
+    Route::get('/invoice/{id}/sewa', [InvoiceController::class, 'indexSewa'])->name('invoice.indexSewa');
+    Route::get('/invoice/{id}/eventDownload', [InvoiceController::class, 'downloadInvoiceEvent'])->name('invoice.downloadEvent');
+    Route::get('/invoice/{id}/sewaDownload', [InvoiceController::class, 'downloadInvoiceSewa'])->name('invoice.downloadSewa');
+    Route::get('/invoice/{id}/invoiceEvent', [InvoiceController::class, 'InvoiceEvent'])->name('invoice.InvoiceEvent');
+    Route::get('/invoice/{id}/invoiceSewa', [InvoiceController::class, 'InvoiceSewa'])->name('invoice.InvoiceSewa');
 });
 
 Route::get('/{kode}', [App\Http\Controllers\ShortlinkController::class, 'shortenLink'])->name('shorten.link');

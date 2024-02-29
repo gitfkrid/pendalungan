@@ -17,23 +17,13 @@ class Pelanggan extends Model
         'alamat_pelanggan',
         'hp_pelanggan',
         'email_pelanggan',
-        'username_pelanggan',
-        'password_pelanggan',
     ];
-
-    public function penyewaan() {
-        return $this->hasMany('App\Models\Penyewaan', 'id_pelanggan');
-    }
 
     public function event() {
         return $this->hasMany('App\Models\Event', 'id_pelanggan');
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $model->uuid = (string) Str::uuid();
-        });
+    public function riwayat_event() {
+        return $this->hasMany('App\Models\RiwayatEvent', 'id_pelanggan');
     }
 }

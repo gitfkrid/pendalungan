@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Level;
+use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
@@ -16,12 +17,16 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $level = Level::all();
+        $level = Level::where('id_level', '!=', 4)
+                        ->where('id_level', '!=', 1)
+                        ->get();
         return view('pegawai.index', compact('level'));
     }
 
     public function dataPegawai() {
         $pegawai = User::join('level', 'level.id_level', '=', 'users.id_level')
+                    ->where('level.id_level', '!=', 4)
+                    ->where('users.id', '!=', Auth()->user()->id)
                     ->orderBy('id', 'desc')
                     ->get();
         $no = 0;
@@ -33,8 +38,7 @@ class PegawaiController extends Controller
             $row[] = $list->name;
             $row[] = $list->email;
             $row[] = $list->nama_level;
-            $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id.')"><i class="fas fa-pencil-alt"></i></a> 
-            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id.')"><i class="fa fa-trash"></i></a>';
+            $row[] = '<a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id.')"><i class="fa fa-trash"></i></a>';
             $data[] = $row;
         }
         return DataTables::of($data)->escapeColumns([])->make(true);
@@ -61,6 +65,7 @@ class PegawaiController extends Controller
         $pegawai = new User;
         $pegawai->name = $request->name;
         $pegawai->email = $request->email;
+        $pegawai->alamat = $request->alamat;
         $pegawai->hp = $request->hp;
         $pegawai->id_level = $request->id_level;
         $pegawai->password = bcrypt($request->password);
@@ -86,8 +91,7 @@ class PegawaiController extends Controller
      */
     public function edit($id)
     {
-        $pegawai = User::find($id);
-        echo json_encode($pegawai);
+        //
     }
 
     /**
@@ -99,12 +103,7 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $pegawai = User::find($id);
-        $pegawai->name = $request->name;
-        $pegawai->email = $request->email;
-        $pegawai->hp = $request->hp;
-        $pegawai->id_level = $request->id_level;
-        $pegawai->update();
+        //
     }
 
     /**

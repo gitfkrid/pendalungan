@@ -15,13 +15,10 @@ return new class extends Migration
     {
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->id('id_pelanggan');
-            $table->string('uuid')->unique();
             $table->string('nama_pelanggan', 50);
             $table->string('alamat_pelanggan', 100);
-            $table->string('hp_pelanggan', 14);
+            $table->string('hp_pelanggan', 13)->unique();
             $table->string('email_pelanggan', 50);
-            $table->string('username_pelanggan', 50);
-            $table->string('password_pelanggan', 255);
             $table->timestamps();
         });
     }

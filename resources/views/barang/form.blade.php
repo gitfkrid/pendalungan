@@ -13,6 +13,12 @@
                     <input type="hidden" id="id" name="id"/>
                     <div class="row">
                         <div class="col mb-3">
+                            <label for="kode_barang" class="form-label">Kode Barang</label>
+                            <input type="text" id="kode_barang" name="kode_barang" class="form-control" autofocus required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
                             <label for="nama_barang" class="form-label">Nama Barang</label>
                             <input type="text" id="nama_barang" name="nama_barang" class="form-control" autofocus required />
                         </div>
@@ -30,14 +36,8 @@
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="spek_barang" class="form-label">Spek Barang</label>
-                            <input type="text" id="spek_barang" name="spek_barang" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="sn_barang" class="form-label">SN Barang</label>
-                            <input type="text" id="sn_barang" name="sn_barang" class="form-control" required />
+                            <label for="serial_number" class="form-label">Serial Number</label>
+                            <input type="text" id="serial_number" name="serial_number" class="form-control" required />
                         </div>
                     </div>
                     <div class="row">

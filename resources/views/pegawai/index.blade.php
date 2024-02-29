@@ -59,12 +59,8 @@
 
                 $('#modal-form form').on('submit', function(e){
                     if(!e.isDefaultPrevented()){
-                        var id = $('#id').val();
-                        if(save_method == "add") url = "{{ route('pegawai.store') }}";
-                        else url = "pegawai/"+id;
-
                         $.ajax({
-                            url : url,
+                            url : "{{ route('pegawai.store') }}",
                             type : "POST",
                             data : $('#modal-form form').serialize(),
                             success : function(data){
@@ -86,31 +82,6 @@
                 $('#modal-form').modal('show');
                 $('#modal-form form')[0].reset();
                 $('.modal-title').text('Tambah Pegawai');
-            }
-
-            function editForm(id){
-                save_method = "edit";
-                $('input[name=_method]').val('PATCH');
-                $('#modal-form form')[0].reset();
-                $.ajax({
-                    url : "pegawai/"+id+"/edit",
-                    type : "GET",
-                    dataType : "JSON",
-                    success : function(data){
-                        $('#modal-form').modal('show');
-                        $('.modal-title').text('Edit Pegawai');
-
-                        $('#id').val(data.id);
-                        $('#name').val(data.name);
-                        $('#email').val(data.email);
-                        $('#hp').val(data.hp);
-                        $('#id_level').val(data.id_level);
-                        $('#password').attr('disabled', true);
-                    },
-                    error : function(){
-                        alert("Tidak dapat menampilkan data!");
-                    }
-                });
             }
 
             function deleteData(id) {

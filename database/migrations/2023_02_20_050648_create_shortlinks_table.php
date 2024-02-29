@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('shortlink', function (Blueprint $table) {
             $table->id('id_shortlink');
-            $table->string('kode', 10);
-            $table->string('link', 255);
-            $table->string('keterangan', 255);
+            $table->string('kode', 10)->unique();
+            $table->text('link');
+            $table->text('keterangan', 255);
             $table->timestamps();
         });
     }

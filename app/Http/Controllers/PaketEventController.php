@@ -27,8 +27,8 @@ class PaketEventController extends Controller
                 $no++;
                 $row = array();
                 $row[] = $no;
+                $row[] = $list->kode_paket;
                 $row[] = $list->nama_paket;
-                $row[] = $list->deskripsi_paket;
                 $row[] = "Rp. ". format_uang($list->harga_paket);
                 $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_paket.')"><i class="fas fa-pencil-alt"></i></a> 
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id_paket.')"><i class="fa fa-trash"></i></a>';
@@ -44,8 +44,8 @@ class PaketEventController extends Controller
                 $no++;
                 $row = array();
                 $row[] = $no;
+                $row[] = $list->kode_paket;
                 $row[] = $list->nama_paket;
-                $row[] = $list->deskripsi_paket;
                 $row[] = "Rp. ". format_uang($list->harga_paket);
                 $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_paket.')"><i class="fas fa-pencil-alt"></i></a>';
                 $data[] = $row;
@@ -60,9 +60,10 @@ class PaketEventController extends Controller
                 $no++;
                 $row = array();
                 $row[] = $no;
+                $row[] = $list->kode_paket;
                 $row[] = $list->nama_paket;
-                $row[] = $list->deskripsi_paket;
                 $row[] = "Rp. ". format_uang($list->harga_paket);
+                $row[] = '';
                 $data[] = $row;
             }
             $output = array("data" => $data);
@@ -89,8 +90,8 @@ class PaketEventController extends Controller
     public function store(Request $request)
     {
         $paket_event = new PaketEvent;
+        $paket_event->kode_paket = $request['kode_paket'];
         $paket_event->nama_paket = $request['nama_paket'];
-        $paket_event->deskripsi_paket = $request['deskripsi_paket'];
         $paket_event->harga_paket = $request['harga_paket'];
         $paket_event->save();
     }
@@ -128,8 +129,8 @@ class PaketEventController extends Controller
     public function update(Request $request, $id)
     {
         $paket_event = PaketEvent::find($id);
+        $paket_event->kode_paket = $request['kode_paket'];
         $paket_event->nama_paket = $request['nama_paket'];
-        $paket_event->deskripsi_paket = $request['deskripsi_paket'];
         $paket_event->harga_paket = $request['harga_paket'];
         $paket_event->update();
     }

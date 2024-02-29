@@ -24,6 +24,9 @@ class LevelSeeder extends Seeder
             ],
             [
                 'nama_level' => 'Staff'
+            ],
+            [
+                'nama_level' => 'Pelanggan'
             ]
         ));
     }

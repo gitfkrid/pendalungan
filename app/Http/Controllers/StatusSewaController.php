@@ -28,8 +28,6 @@ class StatusSewaController extends Controller
                 $row = array();
                 $row[] = $no;
                 $row[] = $list->nama_status_sewa;
-                $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_status_sewa.')"><i class="fas fa-pencil-alt"></i></a> 
-                        <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id_status_sewa.')"><i class="fa fa-trash"></i></a>';
                 $data[] = $row;
             }
             $output = array("data" => $data);
@@ -43,7 +41,6 @@ class StatusSewaController extends Controller
                 $row = array();
                 $row[] = $no;
                 $row[] = $list->nama_status_sewa;
-                $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_status_sewa.')"><i class="fas fa-pencil-alt"></i></a>';
                 $data[] = $row;
             }
             $output = array("data" => $data);

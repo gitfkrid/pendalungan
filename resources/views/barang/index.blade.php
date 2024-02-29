@@ -26,11 +26,11 @@
                         <thead class="thead-light">
                         <tr>
                             <th>No</th>
+                            <th>Kode Barang</th>
                             <th>Nama Barang</th>
-                            <th>Nama kategori</th>
-                            <th>Spesifikasi</th>
-                            <th>SN</th>
+                            <th>Serial Number</th>
                             <th>Harga Sewa</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
@@ -103,10 +103,10 @@
                         $('.modal-title').text('Edit Barang');
 
                         $('#id').val(data.id_barang);
+                        $('#kode_barang').val(data.kode_barang);
                         $('#nama_barang').val(data.nama_barang);
                         $('#id_kategori').val(data.id_kategori);
-                        $('#spek_barang').val(data.spek_barang);
-                        $('#sn_barang').val(data.sn_barang);
+                        $('#serial_number').val(data.serial_number);
                         $('#harga_sewa').val(data.harga_sewa);
                     },
                     error : function(){

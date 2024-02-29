@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('id_event');
             $table->unsignedBigInteger('id_paket');
             $table->foreign('id_paket')->references('id_paket')->on('paket_event');
-            $table->string('no_invoice', 20);
+            $table->string('no_invoice', 25)->unique();
             $table->string('nama_event', 50);
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
@@ -26,9 +26,11 @@ return new class extends Migration
             $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan');
             $table->unsignedBigInteger('id_status_event');
             $table->foreign('id_status_event')->references('id_status_event')->on('status_event');
+            $table->integer('qty');
             $table->integer('subtotal');
             $table->integer('pajak');
             $table->integer('total');
+            $table->integer('dibayar');
             $table->timestamps();
         });
     }

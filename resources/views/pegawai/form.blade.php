@@ -14,25 +14,31 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="name" class="form-label">Nama Pegawai</label>
-                            <input type="text" id="name" name="name" class="form-control" autofocus required />
+                            <input type="text" id="name" name="name" class="form-control" autofocus/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required />
+                            <input type="email" id="email" name="email" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" id="alamat" name="alamat" class="form-control" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="hp" class="form-label">No Hp</label>
-                            <input type="text" id="hp" name="hp" class="form-control" required />
+                            <input type="text" id="hp" name="hp" class="form-control" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="id_level">Level</label>
-                            <select class="form-control" id="id_level" name="id_level" required>
+                            <select class="form-control" id="id_level" name="id_level">
                                 <option value="">Pilih Level</option>
                                 @foreach($level as $data)
                                     <option value="{{ $data->id_level }}">{{ $data->nama_level }}</option>
@@ -43,7 +49,7 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="text" id="password" name="password" class="form-control" required />
+                            <input type="password" id="password" name="password" class="form-control" />
                         </div>
                     </div>
                     <div class="modal-footer">

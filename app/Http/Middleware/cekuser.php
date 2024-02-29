@@ -18,7 +18,7 @@ class cekuser
     public function handle(Request $request, Closure $next, $level)
     {
         $user = Auth::user();
-        if ($user && $user->id_level != $level) {
+        if ($user && $user->id_level != $level && $user->id_level == 4) {
             return redirect('/');
         } else
         return $next($request);

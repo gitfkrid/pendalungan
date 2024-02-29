@@ -19,49 +19,18 @@ class LevelController extends Controller
     }
 
     public function dataLevel() {
-        if(Auth::user()->id_level == '1') {
-            $level = Level::orderBy('id_level', 'asc')->get();
-            $no = 0;
-            $data = array();
-            foreach($level as $list) {
-                $no++;
-                $row = array();
-                $row[] = $no;
-                $row[] = $list->nama_level;
-                $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_level.')"><i class="fas fa-pencil-alt"></i></a> 
-                        <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="deleteData('.$list->id_level.')"><i class="fa fa-trash"></i></a>';
-                $data[] = $row;
-            }
-            $output = array("data" => $data);
-            return response()->json($output);
-        } else if (Auth::user()->id_level == '2') {
-            $level = Level::orderBy('id_level', 'asc')->get();
-            $no = 0;
-            $data = array();
-            foreach($level as $list) {
-                $no++;
-                $row = array();
-                $row[] = $no;
-                $row[] = $list->nama_level;
-                $row[] = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editForm('.$list->id_level.')"><i class="fas fa-pencil-alt"></i></a>';
-                $data[] = $row;
-            }
-            $output = array("data" => $data);
-            return response()->json($output);
-        } else {
-            $level = Level::orderBy('id_level', 'asc')->get();
-            $no = 0;
-            $data = array();
-            foreach($level as $list) {
-                $no++;
-                $row = array();
-                $row[] = $no;
-                $row[] = $list->nama_level;
-                $data[] = $row;
-            }
-            $output = array("data" => $data);
-            return response()->json($output);
+        $level = Level::orderBy('id_level', 'asc')->get();
+        $no = 0;
+        $data = array();
+        foreach($level as $list) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $list->nama_level;
+            $data[] = $row;
         }
+        $output = array("data" => $data);
+        return response()->json($output);
     }
 
     /**

@@ -18,8 +18,6 @@ return new class extends Migration
             $table->foreign('id_sewa')->references('id_sewa')->on('penyewaan');
             $table->unsignedBigInteger('id_barang');
             $table->foreign('id_barang')->references('id_barang')->on('barang');
-            $table->integer('qty');
-            $table->integer('durasi');
             $table->integer('subtotal');
         });
     }

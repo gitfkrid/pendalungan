@@ -19,4 +19,8 @@ class StatusEvent extends Model
     public function event() {
         return $this->hasMany('App\Models\Event', 'id_status_event');
     }
+
+    public function riwayat_event() {
+        return $this->hasMany('App\Models\RiwayatEvent', 'id_status_event');
+    }
 }

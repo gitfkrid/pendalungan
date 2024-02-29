@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->uuid('uuid')->after('id')->nullable();
             $table->string('hp', 14)->after('email')->nullable();
+            $table->text('alamat')->after('hp');
             $table->unsignedBigInteger('id_level')->after('hp');
             $table->foreign('id_level')->references('id_level')->on('level');
         });
