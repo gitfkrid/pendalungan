@@ -38,21 +38,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pw123456
       MYSQL_DATABASE: db_pendalungan
-      MYSQL_USER: user
+      MYSQL_USER: pendalungan
       MYSQL_PASSWORD: pw123456
     ports:
       - "3306:3306"
-    volumes:
-      - dbdata:/var/lib/mysql/
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
-      - ./mysql-files:/var/lib/mysql-files
-    networks:
-      - app-network
 
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  dbdata:
-    driver: local
