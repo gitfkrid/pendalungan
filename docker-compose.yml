@@ -32,9 +32,13 @@ services:
     networks:
       - app-network
 
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
+  db:
+    image: mysql
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_DATABASE: db_pendalungan
       MYSQL_ROOT_PASSWORD: pw123456
@@ -43,11 +47,11 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-    - dbdata:/var/lib/mysql/
-    - ./mysql/my.cnf:/etc/mysql/my.cnf
-    - ./mysql-files:/var/lib/mysql-files
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./mysql-files:/var/lib/mysql-files
     networks:
-    - app-network
+      - app-network
 
 networks:
   app-network:
