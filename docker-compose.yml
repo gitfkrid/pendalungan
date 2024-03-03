@@ -36,12 +36,18 @@ services:
     image: mysql:5.7
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: pw123456
       MYSQL_DATABASE: db_pendalungan
+      MYSQL_ROOT_PASSWORD: pw123456
       MYSQL_USER: pendalungan
       MYSQL_PASSWORD: pw123456
-    ports:
-      - "3306:3306"
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+    - dbdata:/var/lib/mysql/
+    - ./mysql/my.cnf:/etc/mysql/my.cnf
+    - ./mysql-files:/var/lib/mysql-files
+    networks:
+    - app-network
 
 networks:
   app-network:
