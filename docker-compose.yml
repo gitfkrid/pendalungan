@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: fikri/php
+    image: laravel
     container_name: app
     restart: unless-stopped
     tty: true
@@ -38,7 +38,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pw123456
       MYSQL_DATABASE: db_pendalungan
-      MYSQL_USER: root
+      MYSQL_USER: user
       MYSQL_PASSWORD: pw123456
     ports:
       - "3306:3306"
