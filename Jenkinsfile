@@ -1,22 +1,14 @@
-pipeline {
-    agent any
+node {
+    checkout scm
 
-    stages {
-        stage('Install Dependencies') {
-            steps {
-                sh 'composer install'
-            }
+    stage("Build"){
+        docker.image('shippingdocker/php-composer:8.2').inside('-u root') {
+            sh 'rm composer.lock'
+            sh 'composer install'
         }
-        stage('Run Tests') {
-            steps {
-                sh './vendor/bin/phpunit'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'php artisan key:generate'
-                sh 'php artisan config:cache'
-            }
-        }
+    }
+
+    docker.image('ubuntu').inside('-u root') {
+        sh 'echo "Ini adalah test"'
     }
 }
