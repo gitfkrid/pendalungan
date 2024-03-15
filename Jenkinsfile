@@ -3,7 +3,7 @@ node {
 
     // deploy env dev
     stage("Build"){
-        docker.image('shippingdocker/php-composer:7.4').inside('-u root') {
+        docker.image('shippingdocker/php-composer:8.2').inside('-u root') {
             sh 'rm composer.lock'
             sh 'composer install'
         }
@@ -11,7 +11,7 @@ node {
 
     // Testing
     stage("Test"){
-        docker.image('php:7.4-cli').inside('-u root') {
+        docker.image('php:8.2-cli').inside('-u root') {
             sh 'php artisan test --testsuite=Unit'
         }
     }
